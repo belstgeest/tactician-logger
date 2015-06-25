@@ -23,6 +23,9 @@
         "mockery/mockery": "^0.9",
         "squizlabs/php_codesniffer": "~2.3"
     },
+    "suggest" : {
+        "jms/serializer": "(de-)Serialize data of any complexity. Supporting XML, JSON, and YAML"
+    },
     "autoload": {
         "psr-4": {
             "League\\Tactician\\Logger\\": "src"
