@@ -8,26 +8,24 @@ use League\Tactician\Logger\Tests\Fixtures\RegisterUserCommand;
 
 /**
  * JmsPropertySerializerTest
- * 
+ *
  */
 class JmsPropertySerializerTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var JmsPropertySerializer
+     * @var SerializerBuilder
      */
-    private $serializer;
+    private $builder;
 
     protected function setUp()
     {
-        $builder = new SerializerBuilder();
-
-        $this->serializer = new JmsPropertySerializer($builder->build());
+        $this->builder = new SerializerBuilder();
     }
 
-    public function testCommandPropertiesCanBeDumpedAsJson()
+    public function testCommandPropertiesCanBeSerializedAsJson()
     {
-        $this->serializer->setFormat('json');
+        $serializer = new JmsPropertySerializer($this->builder->build(), 'json');
         $command   = new RegisterUserCommand();
         $createdAt = $command->createdAt->format(\DateTime::ISO8601);
         $expected  = '{'
@@ -37,12 +35,12 @@ class JmsPropertySerializerTest extends \PHPUnit_Framework_TestCase
             . '"created_at":"' . $createdAt . '",'
             . '"options":{"foo":"thing 1","bar":"thing 2"}'
             . '}';
-        $this->assertJsonStringEqualsJsonString($expected, $this->serializer->encode($command));
+        $this->assertJsonStringEqualsJsonString($expected, $serializer->encode($command));
     }
 
-    public function testCommandPropertiesCanBeDumpedAsXml()
+    public function testCommandPropertiesCanBeSerializedAsXml()
     {
-        $this->serializer->setFormat('xml');
+        $serializer = new JmsPropertySerializer($this->builder->build(), 'xml');
         $command = new RegisterUserCommand();
         $command->createdAt = new \DateTime('2015-06-25T21:22:18+0200');
 
@@ -59,12 +57,12 @@ class JmsPropertySerializerTest extends \PHPUnit_Framework_TestCase
   </options>
 </result>
 EOF;
-        $this->assertXmlStringEqualsXmlString($expected, $this->serializer->encode($command));
+        $this->assertXmlStringEqualsXmlString($expected, $serializer->encode($command));
     }
 
-    public function testCommandPropertiesCanBeDumpedAsYml()
+    public function testCommandPropertiesCanBeSerializedAsYaml()
     {
-        $this->serializer->setFormat('yml');
+        $serializer = new JmsPropertySerializer($this->builder->build(), 'yml');
         $command = new RegisterUserCommand();
         $command->createdAt = new \DateTime('2015-06-25T21:22:18+0200');
 
@@ -78,7 +76,7 @@ options:
     bar: 'thing 2'
 
 EOF;
-        $this->assertEquals($expected, $this->serializer->encode($command));
+        $this->assertEquals($expected, $serializer->encode($command));
     }
 
 }

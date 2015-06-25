@@ -6,7 +6,7 @@ use JMS\Serializer\Serializer;
 
 /**
  * Simple implementation of JMS serializer
- * 
+ *
  */
 class JmsPropertySerializer implements PropertySerializer
 {
@@ -17,34 +17,26 @@ class JmsPropertySerializer implements PropertySerializer
      */
     protected $serializer;
 
-    /**     
+    /**
      * Format
      * @var string
      */
     protected $format;
 
     /**
-     * 
+     *
      * @param Serializer $serializer
+     * @param string $format
      */
-    public function __construct(Serializer $serializer)
+    public function __construct(Serializer $serializer, $format = 'json')
     {
         $this->serializer = $serializer;
+        $this->format = $format;
     }
-   
+
     public function encode($command)
     {
         return $this->serializer->serialize($command, $this->format);
-    }
-    /**
-     * 
-     * @param string $format
-     * @return JmsPropertySerializer
-     */
-    public function setFormat($format)
-    {
-        $this->format = $format;
-        return $this;
     }
 
 }
