@@ -17,7 +17,7 @@ class RegisterUserCommand
 
     private $age;
 
-    private $createdAt;
+    public $createdAt;
 
     private $empty;
 
