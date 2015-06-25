@@ -19,8 +19,6 @@ class RegisterUserCommand
 
     private $createdAt;
 
-    private $file;
-
     private $empty;
 
     private $options;
@@ -31,13 +29,7 @@ class RegisterUserCommand
         $this->emailAddress = 'alice@example.org';
         $this->age = 30.5;
         $this->createdAt = new DateTime();
-        $this->file = fopen(__FILE__, 'r');
         $this->empty = null;
         $this->options = ['foo' => 'thing 1', 'bar' => 'thing 2'];
-    }
-
-    public function __destruct()
-    {
-        fclose($this->file);
     }
 }

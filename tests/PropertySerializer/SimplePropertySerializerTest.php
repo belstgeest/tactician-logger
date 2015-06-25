@@ -20,7 +20,7 @@ class SimplePropertySerializerTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertJsonStringEqualsJsonString(
             '{"name":"Alice","emailAddress":"alice@example.org","age":30.5,"createdAt":"object(DateTime)",' .
-            '"file":"resource(stream)","empty":"*null*","options":"*array*"}',
+            '"empty":"*null*","options":"*array*"}',
             $this->serializer->encode(new RegisterUserCommand())
         );
     }

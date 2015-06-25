@@ -41,8 +41,6 @@ class SimplePropertySerializer implements PropertySerializer
                 return 'object(' . get_class($value) . ')';
             case 'array':
                 return '*array*';
-            case 'resource':
-                return 'resource(' . get_resource_type($value) . ')';
             case 'NULL':
                 return '*null*';
             default:
